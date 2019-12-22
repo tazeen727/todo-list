@@ -40,18 +40,13 @@ fn tasks(conn: DbConn) -> Result<Json<Vec<Task>>, ()> {
     }
 }
 
-#[post("/task", format = "json", data = "<task>")]
-fn register(conn: DbConn, task: Json<Task>) -> Result<Json<Task>, ()> {
-
-}
-
 fn main() {
     rocket::ignite()
         .mount(
             "/",
             StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/static")),
         )
-        .mount("/", routes![tasks, task])
+        .mount("/", routes![tasks])
         .attach(DbConn::fairing())
         .launch();
 }
