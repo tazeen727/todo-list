@@ -1,0 +1,16 @@
+[package]
+name = "todo-list"
+version = "0.1.0"
+authors = ["tazeen727 <a1wayz.summer0@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+chrono = { version = "0.4", features = ["serde"] }
+rocket = "0.4.2"
+serde = "1.0"
+serde_derive = "1.0"
+rusqlite = { version = "0.14", features = ["chrono"] }
+
+[dependencies.rocket_contrib]
+version = "0.4.2"
+features = ["sqlite_pool"]
