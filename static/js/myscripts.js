@@ -1,13 +1,18 @@
 function addTask() {
     const list = document.getElementById('tasklist');
     const size = list.childElementCount;
-    const taskId = 'task' + (size + 1);
+    const id = size + 1;
 
     const newtaskDesc = document.getElementById('newtask_desc');
     const description = newtaskDesc.value;
     newtaskDesc.value = '';
 
-    appendTask(taskId, description, false);
+    // appendTask(taskId, description, false);
+    postTask({
+        id: id,
+        description: description,
+        done: false,
+    });
 }
 
 function appendTask(taskId, description, done) {
@@ -54,14 +59,31 @@ function updateTasklist() {
         })
         .then((tasks) => {
             for (i in tasks) {
-                const chkbox = appendTask(tasks[i].id, tasks[i].description, tasks[i].done);
+                const chkbox = appendTask(
+                    'task' + tasks[i].id,
+                    tasks[i].description,
+                    tasks[i].done);
                 chkbox.dispatchEvent(new Event('change'));
             }
         })
         .catch((err) => console.error(err));
 }
 
-
+function postTask(task) {
+    fetch('/task', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(task),
+    }).then(res => {
+        if (res.ok) {
+            updateTasklist();
+        } else {
+            alert(`Error: ${res.status}`);
+        }
+    })
+}
 
 window.addEventListener('DOMContentLoaded', function () {
     const btn = document.getElementById('newtask_button');

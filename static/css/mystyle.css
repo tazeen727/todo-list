@@ -1,7 +1,3 @@
-ul {
-    list-style: none;
-}
-
 #content {
     margin: 20px 50px;
 }
@@ -10,8 +6,12 @@ ul {
     margin: 10px 0;
 }
 
-ul #tasklist > li {
-    margin: 1,2 0;
+ul {
+    list-style: none;
+}
+
+ul#tasklist > li {
+    margin: 10px 0;
 }
 
 label.done {
